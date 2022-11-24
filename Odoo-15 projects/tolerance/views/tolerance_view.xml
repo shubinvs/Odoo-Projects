@@ -1,0 +1,26 @@
+<odoo>
+    <data>
+        <record id="inherit_view_res_partner" model="ir.ui.view">
+            <field name="name">res.partner.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="tolerance" widget="percentage"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="inherit_view_sale_order" model="ir.ui.view">
+            <field name="name">sale.order.view.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='sale_order_template_id']"
+                       position="after">
+                    <field name="tolerance" widget="percentage"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

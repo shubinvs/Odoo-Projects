@@ -1,0 +1,40 @@
+<odoo>
+
+    <record id="warranty_report_wizard_form" model="ir.ui.view">
+        <field name="name">warranty.request.report.wizard.form</field>
+        <field name="model">warranty.report.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="product_ids" widget="many2many_tags"
+                               options="{'no_create': True, 'no_create_edit':True}"/>
+                        <field name="customer_id"
+                               options="{'no_create': True, 'no_create_edit':True}"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_print_pdf" string="PDF"
+                            type="object"
+                            class="oe_highlight"/>
+                    <button name="action_print_xlsx" string="XLSX"
+                            type="object"
+                            class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="warranty_report_model_action" model="ir.actions.act_window">
+        <field name="name">Warranty Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">warranty.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="warranty_report_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+
+</odoo>

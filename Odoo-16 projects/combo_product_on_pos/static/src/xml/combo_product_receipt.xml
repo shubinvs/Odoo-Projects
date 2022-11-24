@@ -1,0 +1,24 @@
+<template id="pos_combo_product_receipt">
+    <t t-name="ComboProductOrderReceipt"
+       t-inherit="point_of_sale.OrderLinesReceipt"
+       t-inherit-mode="extension" owl="1">
+        <xpath expr="//t[@t-foreach='receipt.orderlines']" position="inside">
+<!--        <xpath expr="//div[hasclass('responsive-price')]" position="inside">-->
+<!--             <t t-esc="props.combo_products"/>-->
+            <t t-if="line.combo_products">
+                <div class="pos-receipt-right-padding">
+                    <t t-foreach="line.combo_products" t-as="product" t-key="product_index">
+                        <div style="font-size: 12px;">
+                            <span>Product Name :</span>
+                            <t t-esc="product['product_name']"/>
+                        </div>
+                        <div style="font-size: 12px;">
+                            <span >Quantity:</span>
+                            <t t-esc="product['quantity']"/>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </xpath>
+    </t>
+</template>

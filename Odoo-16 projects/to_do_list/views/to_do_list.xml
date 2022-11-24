@@ -1,0 +1,137 @@
+<odoo>
+    <record id="to_do_list_model_action"
+            model="ir.actions.act_window">
+        <field name="name">Activity</field>
+        <field name="res_model">to.do.list</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <record id="form_to_do_list_view" model="ir.ui.view">
+        <field name="name">To Do List Form</field>
+        <field name="model">to.do.list</field>
+        <field name="arch" type="xml">
+            <form string="Form">
+                <header>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="today,planned,expired,done,cancel"
+                           options="{'clickable': '1'}"/>
+                    <button name="button_mark_as_done" class="oe_highlight"
+                            string="Mark As Done"
+                            type="object"/>
+                    <button name="button_cancel" class="oe_highlight"
+                            string="Cancel"
+                            type="object"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="priority" widget="priority"/>
+                            <field name="activity_type"/>
+                            <field name="summary"/>
+                        </group>
+                        <group>
+                            <field name="due_date"/>
+                            <field name="check" invisible="1"/>
+                            <field name="recurring"/>
+                            <field name="recurring_period" attrs="{'invisible':[('recurring','=', False)]}"/>
+                            <field name="next_recurring_date" attrs="{'invisible':[('recurring','=', False)]}"/>
+                            <field name="user_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="tree_to_do_list_view" model="ir.ui.view">
+        <field name="name">To Do List Tree</field>
+        <field name="model">to.do.list</field>
+        <field name="arch" type="xml">
+            <tree string="Tree"
+                  decoration-success="due_date == context_today().strftime('%Y-%m-%d')"
+                  decoration-danger="due_date &lt; context_today().strftime('%Y-%m-%d')">
+                <field name="priority" widget="priority"/>
+                <field name="summary"/>
+                <field name="user_id"/>
+                <field name="activity_type"/>
+                <field name="due_date"/>
+                <field name="state" widget='badge'
+                       decoration-success="state == 'today'"
+                       decoration-danger="state == 'expired'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="kanban_to_do_list_view" model="ir.ui.view">
+        <field name="name">To Do List Kanban</field>
+        <field name="model">to.do.list</field>
+        <field name="arch" type="xml">
+            <kanban string="Kanban" default_group_by="state">
+                <field name="summary"/>
+                <field name="activity_type"/>
+                <field name="priority"/>
+                <field name="user_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="summary"/>
+                                    <br/>
+                                </strong>
+                                <strong class="o_kanban_record_subtitle">
+                                    <field name="activity_type"/>
+                                    <br/>
+                                </strong>
+                            </div>
+                            <div class="oe_kanban_footer">
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <field name="priority"
+                                               widget="priority"/>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <field name="user_id"
+                                               widget="many2one_avatar_user"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="to_do_list_search" model="ir.ui.view">
+        <field name="name">To Do List Filter</field>
+        <field name="model">to.do.list</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter string="My Activities" name="myactivity"
+                        domain="[('user_id', '=', uid)]"/>
+                <filter string="Late Activities"
+                        name="activities_overdue"
+                        domain="[('due_date', '&lt;', context_today().strftime('%Y-%m-%d'))]"
+                        help="Show all records which has next action date is before today"/>
+                <filter string="Today Activities"
+                        name="activities_today"
+                        domain="[('due_date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter string="Future Activities"
+                        name="activities_upcoming_all"
+                        domain="[('due_date', '&gt;', context_today().strftime('%Y-%m-%d'))
+                        ]"/>
+            </search>
+        </field>
+    </record>
+</odoo>

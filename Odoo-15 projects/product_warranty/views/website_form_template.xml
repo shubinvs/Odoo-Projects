@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="tmp_warranty_request_form" name="Warranty Request Form">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="col-md-12">
+                        <form action="/warranty_request/submit">
+                            <div>
+                                <center>
+                                    <h2><U><B>Warranty Request Form</B></U></h2>
+                                </center>
+                            </div>
+                            <div class="form-group">
+                                <label for="invoice">Invoice No:</label>
+                                <select class="form-control" name="invoice"
+                                        id="invoice">
+                                    <option></option>
+                                    <t t-foreach="invoice_id" t-as="rec">
+                                        <option t-att-value="rec['id']">
+                                            <t t-esc="rec['name']"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Customer Name:</label>
+                                <select class="form-control" name="name"
+                                        id="name">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="product">Product :</label>
+                                <select class="form-control" name="product"
+                                        id="product" >
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="lot">Lot :</label>
+                                <select class="form-control" id="lot"
+                                        name="lot">
+                                </select>
+                            </div>
+                                <button type="submit" class="btn btn-primary">
+                                    submit
+                                </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

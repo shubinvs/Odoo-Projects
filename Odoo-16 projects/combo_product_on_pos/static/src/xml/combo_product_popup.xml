@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+   <t t-name="ComboProductsPopup" owl="1">
+       <div role="dialog" class="modal-dialog">
+           <div class="popup popup-couponproducts"
+                style="background-color:white;">
+                   <div style="background:#44886c;color:black;">
+                       <t t-esc="props.DisplayName"/>
+                   </div>
+               <span class="body">
+                    <div style="background:white;color:black;">
+
+                        <t t-foreach="props.Result" t-as="i" t-key="i_index">
+                            <div style="background:#57c7a9;color:black;">
+                            <t t-esc="i.category_name"/>
+                            </div>
+                            <br/>
+                            <div style="display: flex;width: fit-content;margin: 0 auto;">
+                            <t t-foreach="i.product" t-as="p" t-key="p_index">
+                                    <article  id="article-19"
+                                              class="combo product"
+                                              tabindex="0"
+                                              style="margin:10px">
+                                        <div class="icon">
+                                                <i t-attf-id="{{p.product_id}}"
+                                                   class="check" role="img"/>
+                                        </div>
+                                        <img t-attf-src="/web/image?model=product.product&amp;field=image_128&amp;id={{p.product_id}}&amp;unique=1"
+                                             t-att-alt="p.product_name"
+                                             style="margin-top: 20px; max-width: 100px"
+                                             width="100%"/>
+                                        <div class="product-name"
+                                             t-attf-id="{{p.count}}"
+                                             style="font-size:12px;">
+                                                   <t t-esc="p.product_name"/>
+                                            <div style="background:#b8e9d1;color:black;">
+                                                       <t t-if="p.required">
+                                                           <span>Required</span>
+                                                       </t>
+                                                </div>
+                                            </div>
+<!--                                            <div class="qty" style="display:none;">-->
+<!--                                               <t t-esc="p.count"/>-->
+<!--                                            </div>-->
+                                    </article>
+                            </t>
+                        </div>
+                        </t>
+                    </div>
+
+                </span>
+               <div class="footer">
+                   <div class="button cancel" t-on-click="cancel">
+                       <t t-esc="props.exitText"/>
+                   </div>
+                   <div class="button confirm" t-on-click="confirm">
+                       <t t-esc="props.confirmText"/>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </t>
+</templates>

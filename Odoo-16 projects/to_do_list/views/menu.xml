@@ -1,0 +1,19 @@
+<odoo>
+    <menuitem id="to_do_menu"
+              name="To Do"
+              sequence="1"/>
+
+    <menuitem id="to_do_activities_menu"
+              name="Activities"
+              parent="to_do_menu"/>
+
+    <menuitem id="to_do_activity_menu"
+              action="to_do_list_model_action"
+              name="Activity"
+              parent="to_do_activities_menu"/>
+
+<!--    <menuitem id="to_do_stage_menu"-->
+<!--              action="to_do_list_stage_model_action"-->
+<!--              name="Stages"-->
+<!--              parent="to_do_activities_menu"/>-->
+</odoo>

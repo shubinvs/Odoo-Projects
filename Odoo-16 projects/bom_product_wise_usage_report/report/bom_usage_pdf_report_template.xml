@@ -1,0 +1,78 @@
+<odoo>
+    <template id="bom_usage_pdf_report_template">
+        <t t-call="web.external_layout">
+            <t t-call="web.html_container">
+                <div class="page">
+                    <h1 style="text-align:center; color:red; font-size:40px;">
+                        <b>BOM Product Usage</b>
+                    </h1>
+                    <h4>
+                        <b>Date From:</b>
+                        <t t-esc="from_date"/>
+                    </h4>
+                    <h4>
+                        <b>Date To:</b>
+                        <t t-esc="to_date"/>
+                    </h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Component Product</th>
+                                <th>Final Product</th>
+                                <th>Quantity Used</th>
+                                <th>UOM</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="component" t-as="component">
+                                <tr>
+                                    <td>
+                                        <b>
+                                            <t t-esc="component"/>
+                                        </b>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <t t-foreach="final" t-as="fin">
+                                    <t t-if="component == fin['component_product']">
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <t t-esc="fin['final_product']"/>
+                                            </td>
+                                            <t t-if="unbuild_list">
+                                                <td>
+                                                    <t t-if="fin['final_product'] in unbuild_list_name">
+                                                        <t t-foreach="unbuild_list"
+                                                           t-as="unbuild">
+                                                            <t t-if="fin['final_product'] == unbuild['unbuild_product_name'] ">
+                                                                <t t-esc="fin['qty'] - unbuild['unbuild_product_qty']"/>
+                                                            </t>
+                                                        </t>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <t t-esc="fin['qty']"/>
+                                                    </t>
+                                                </td>
+                                            </t>
+                                            <t t-else="">
+                                                <td>
+                                                    <t t-esc="fin['qty']"/>
+                                                </td>
+                                            </t>
+                                            <td>
+                                                <t t-esc="fin['uom']"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

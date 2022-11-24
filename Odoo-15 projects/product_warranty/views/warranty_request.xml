@@ -1,0 +1,142 @@
+<odoo>
+    <data>
+        <record id="warranty_request_model_action"
+                model="ir.actions.act_window">
+            <field name="name">Warranty Request</field>
+            <field name="res_model">warranty.request</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+
+        <record id="form_warranty_request_view" model="ir.ui.view">
+            <field name="name">Warranty.form</field>
+            <field name="model">warranty.request</field>
+            <field name="arch" type="xml">
+                <form string="Form">
+                    <header>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,to_approve,approved"/>
+                        <button name="button_to_approve" class="oe_highlight"
+                                states="draft" string="To Approve"
+                                type="object"
+                                help="Move warranty request to to approve state"
+                                groups="product_warranty.warranty_access_user"/>
+                        <button name="button_approved" class="oe_highlight"
+                                states="to_approve" string="Approved"
+                                type="object"
+                                help="Move warranty request to approved state"
+                                groups="product_warranty.warranty_access_manager"/>
+                        <button name="button_return_button"
+                                class="oe_highlight"
+                                states="product_received"
+                                string="Return Product"
+                                type="object"
+                                help="Return product to customer"
+                                groups="product_warranty.warranty_access_manager"/>
+                        <button name="button_draft" class="oe_highlight"
+                                states="to_approve" string="Draft"
+                                type="object"
+                                help="Move warranty request to draft state"
+                                groups="product_warranty.warranty_access_manager"/>
+                        <button name="button_cancel" class="oe_highlight"
+                                states="to_approve,approved"
+                                string="Cancel"
+                                type="object"
+                                help="Move warranty request to cancel state"
+                                groups="product_warranty.warranty_access_manager"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" type="object"
+                                    name="get_warranty_request"
+                                    icon="fa-star"
+                                    attrs="{'invisible': [('state', '!=', 'approved'),('state', '!=', 'product_received'),('state', '!=', 'return_product'),('state', '!=', 'cancel'),('state', '!=', 'done')]}">
+                                <span class="o_stat_text">Warranty</span>
+                            </button>
+                        </div>
+                        <h1>
+                            <field name="sequence_no"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="invoice_id" string="Invoice"
+                                       options="{'no_create': True, 'no_create_edit':True}"/>
+                                <field name="customer_id" string="Customer"
+                                       widget="res_partner_many2one"
+                                       context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}"
+                                       options="{'no_create': True, 'no_create_edit':True,'always_reload': True}"/>
+                                <field name="product_id" string="Product"
+                                       options="{'no_create': True, 'no_create_edit':True}"/>
+                                <field name="lot_id" string="Lot Number"
+                                       options="{'no_create': True, 'no_create_edit':True}"/>
+                            </group>
+                            <group>
+                                <field name="request_date" readonly="1"/>
+                                <field name="purchase_date"/>
+                                <field name="warranty_expiry_date" readonly="1"
+                                       force_save="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_warranty_request_view" model="ir.ui.view">
+            <field name="name">Warranty.tree</field>
+            <field name="model">warranty.request</field>
+            <field name="arch" type="xml">
+                <tree string="Tree">
+                    <field name="sequence_no"/>
+                    <field name="request_date"/>
+                    <field name="warranty_expiry_date"/>
+                    <field name="invoice_id"/>
+                    <field name="customer_id"/>
+                    <field name="product_id"/>
+                    <field name="lot_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="inherit_view_product_form" model="ir.ui.view">
+            <field name="name">product.template.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='purchase_ok']" position="before">
+                    <field name="has_warranty" attrs="{'invisible':0}"/>
+                    <b>has warranty</b>
+                </xpath>
+                <group>
+                    <group>
+                        <field name="warranty_period"
+                               attrs="{'invisible':[('has_warranty','=', False)]}"/>
+                        <field name="warranty_type"
+                               attrs="{'invisible':[('has_warranty','=', False)]}"/>
+                    </group>
+                </group>
+            </field>
+        </record>
+
+        <record id="inherit_view_invoice_form" model="ir.ui.view">
+            <field name="name">invoice.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='other_info']" position="after">
+                    <page name='warranty_info' string="Warranty Info">
+                        <field name="warranty_info_ids"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <record id="location_warranty_location" model="stock.location">
+            <field name="name">Warranty Location</field>
+        </record>
+    </data>
+</odoo>

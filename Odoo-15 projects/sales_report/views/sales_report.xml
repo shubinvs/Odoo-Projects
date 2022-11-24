@@ -1,0 +1,58 @@
+<odoo>
+    <record id="inherit_view_res_config_settings" model="ir.ui.view">
+        <field name="name">res.config.settings.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='catalog_setting_container']"
+                   position="after">
+                <h2>Sales Report</h2>
+                <div class="row mt16 o_settings_container"
+                     id="sales_report_container">
+                    <div class="col-12 col-lg-6 o_setting_box"
+                         id="sale_order_options">
+                        <div class="o_setting_right_pane">
+                            <div class="row mt16">
+                                <label for="customer_ids"
+                                       class="col-lg-4 o_light_label"/>
+                                <field name="customer_ids"
+                                       widget="many2many_tags"
+                                       options="{'no_create': True, 'no_create_edit':True}"/>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <div class="row mt16">
+                                <label for="sales_team_id"
+                                       class="col-lg-4 o_light_label"/>
+                                <field name="sales_team_id"
+                                       options="{'no_create': True, 'no_create_edit':True}"/>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <div class="row mt16">
+                                <label for="based_on"
+                                       class="col-lg-4 o_light_label"/>
+                                <field name="based_on"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <h6>
+                            Action Period
+                        </h6>
+                        <div class="row mt16">
+                            <label for="from_date"
+                                   class="col-lg-4 o_light_label"/>
+                            <field name="from_date"/>
+                        </div>
+                        <div class="row mt16">
+                            <label for="to_date"
+                                   class="col-lg-4 o_light_label"/>
+                            <field name="to_date"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

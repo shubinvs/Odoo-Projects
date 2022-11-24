@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <record id="tolerance_wizard_form" model="ir.ui.view">
+            <field name="name">tolerance.wizard.form</field>
+            <field name="model">tolerance.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                <p>
+                    The range of quantity is below or above the tolerance range
+                </p>
+                <footer>
+                    <button name="action_accept" string="Accept" type="object"
+                            default_focus="1" class="oe_highlight"/>
+                    <button name="action_dont_accept" string="Dont Accept" type="object"
+                            default_focus="1" class="oe_highlight"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

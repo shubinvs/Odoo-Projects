@@ -1,0 +1,41 @@
+<odoo>
+    <record id="bom_usage_report_wizard_form" model="ir.ui.view">
+        <field name="name">BOM usage report</field>
+        <field name="model">bom.usage.report.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="from_date"/>
+                        </group>
+                        <group>
+                            <field name="to_date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="product_id"/>
+                    </group>
+                    <group>
+                        <field name="reduce_unbuild_order"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_print_pdf" string="Print PDF Report"
+                            type="object"
+                            class="oe_highlight"/>
+                    <button special="cancel">Cancel</button>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="bom_usage_report_action" model="ir.actions.act_window">
+        <field name="name">BOM usage report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">bom.usage.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="bom_usage_report_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

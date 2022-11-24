@@ -1,0 +1,11 @@
+<odoo>
+    <record id="payslip_report_action" model="ir.actions.report">
+        <field name="name">Payslip Report</field>
+        <field name="model">hr.payslip</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">payslips.report_payslip</field>
+        <field name="report_file">payslips.report_payslip</field>
+        <!--        <field name="binding_model_id" ref="model_warranty_report_wizard"/>-->
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

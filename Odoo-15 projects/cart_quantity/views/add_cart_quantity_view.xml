@@ -1,0 +1,31 @@
+<odoo>
+        <template id="add_to_cart_quantity"
+                  inherit_id="website_sale.products_item"
+                  customize_show="True"
+                  name="Add To Cart Quantity">
+            <xpath expr="//div[hasclass('o_wsale_product_btn')]"
+                   position="inside">
+                <div class="css_quantity input-group d-inline-flex mr-2 my-1 align-middle" >
+                    <div class="input-group-prepend">
+                        <a t-attf-href="#"
+                           class="btn btn-primary js_add_cart_json"
+                           aria-label="Remove one" title="Remove one">
+                            <span class="fa fa-minus"/>
+                        </a>
+                    </div>
+                    <a class="btn btn-primary">
+                        <input type="text" class="form-control quantity"
+                               data-min="1" name="add_qty"
+                               t-att-value="add_qty or 1"/>
+                    </a>
+                    <div class="input-group-append">
+                        <a t-attf-href="#"
+                           class="btn btn-primary float_left js_add_cart_json"
+                           aria-label="Add one" title="Add one">
+                            <span class="fa fa-plus"/>
+                        </a>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+</odoo>

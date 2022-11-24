@@ -1,0 +1,33 @@
+<odoo>
+    <record id="combo_product_form" model="ir.ui.view">
+        <field name="name">combo.product.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='options']" position='inside'>
+                <span class="d-inline-block">
+                    <field name="is_combo"/>
+                    <label for="is_combo"/>
+                </span>
+            </xpath>
+            <xpath expr="//page[@name='inventory']" position="after">
+                <page string="Combo" name="combo" attrs="{'invisible':[('is_combo','=',False)]}">
+                    <field name="combo_products_ids"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+     <record id="combo_products_view" model="ir.ui.view">
+        <field name="name">combo_products_view</field>
+        <field name="model">combo.product</field>
+        <field name="arch" type="xml">
+            <tree string="combo_product_List" editable="bottom">
+                <field name="category_id"/>
+                <field name="product_id" widget="many2many_tags"/>
+                <field name="is_required"/>
+                <field name="item_count"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

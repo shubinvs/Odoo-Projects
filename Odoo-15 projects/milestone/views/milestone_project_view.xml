@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sale_order_view_inherit">
+            <field name="name">sale.order.view.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='price_subtotal']"
+                       position="after">
+                    <field name="milestone"/>
+                </xpath>
+                <xpath expr="/form/sheet/div[@class='oe_button_box']"
+                       position="inside">
+                    <button class="oe_stat_button" type="object"
+                            name="get_project"
+                            attrs="{'invisible': [('project', '!=', True)]}"
+                            icon="fa-tasks">
+                        <span class="o_stat_text">Project</span>
+                    </button>
+                </xpath>
+                <button name="action_confirm" position="after">
+                    <button name="button_create_project"
+                            string="Create Project" class="oe_highlight"
+                            attrs="{'invisible': ['|',('state', '!=', 'draft'),('project', '=', True)]}"
+                            type="object"/>
+
+                </button>
+                <button name="action_confirm" position="after">
+                    <button name="button_update_project"
+                            string="Update Project" class="oe_highlight"
+                            attrs="{'invisible': ['|',('state', '!=', 'draft'),('project', '=', False)]}"
+                            type="object"/>
+                </button>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="project" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

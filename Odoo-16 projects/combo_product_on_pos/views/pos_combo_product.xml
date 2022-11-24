@@ -1,0 +1,37 @@
+<odoo>
+
+    <record id="tree_combo_product_pos_view" model="ir.ui.view">
+        <field name="name">POS Combo Product </field>
+        <field name="model">pos.combo.product</field>
+        <field name="arch" type="xml">
+            <tree string="Tree" editable="bottom">
+                <field name="category_id"/>
+                <field name="product_ids" widget="many2many_tags"/>
+                <field name="is_required"/>
+                <field name="item_count"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="inherit_product_form" model="ir.ui.view">
+        <field name="name">Product Inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id"
+               ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sale_ok']" position="before">
+                <field name="is_combo"/>
+                <b>Is Combo</b>
+            </xpath>
+
+            <xpath expr="//page[@name='invoicing']" position="after">
+                <page name='combo' string="Combo"
+                      attrs="{'invisible':[('is_combo','=', False)]}">
+                    <field name="combo_ids"/>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,89 @@
+<odoo>
+    <record id="inherit_view_res_config_settings" model="ir.ui.view">
+        <field name="name">res.config.settings.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='sale_config_online_confirmation_sign']"
+                   position="before">
+                <div class="col-12 col-lg-6 o_setting_box"
+                     id="so_order_approval">
+                    <div class="o_setting_left_pane">
+                        <field name="so_approval"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="so_approval"/>
+                        <div class="text-muted">
+                            Request managers to approve sale orders above a
+                            minimum amount
+                        </div>
+                        <div class="content-group"
+                             attrs="{'invisible': [('so_approval', '=', False)]}">
+                            <div class="row mt16">
+                                <label for="minimum_amount"
+                                       class="col-lg-4 o_light_label"/>
+                                <field name="minimum_amount"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sale_order_view_inherit">
+        <field name="name">sale.order.view.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_cancel']"
+                   position="attributes">
+                <attribute name="state"/>
+            </xpath>
+            <xpath expr="//button[@name='action_confirm']"
+                   position="after">
+                <button name="action_approve" class="oe_highlight"
+                        states="to_approve" string="Approve" type="object"
+                        help="Move Appointment to In Progress state"
+                        groups="sales_team.group_sale_manager"
+                        context="{'active_id': id}"/>
+                <button name="action_validate" class="oe_highlight"
+                        string="Validate"
+                        type="object"
+                        help="Move Appointment to In Progress state"
+                        groups="sales_team.group_sale_manager"
+                        attrs="{'invisible':['|',('state','!=','second_approval'),('check','=', True)]}"/>
+                <button name="action_cancel" class="oe_highlight"
+                        states='to_approve' string="Cancel"
+                        type="object"
+                        help="Move Appointment to In Progress state"
+                        groups="sales_team.group_sale_manager"
+                        />
+                <button name="action_cancel" class="oe_highlight"
+                        string="Cancel"
+                        type="object"
+                        help="Move Appointment to In Progress state"
+                        groups="sales_team.group_sale_manager"
+                        attrs="{'invisible':['|',('state','!=','second_approval'),('check','=', True)]}"/>
+            </xpath>
+
+            <xpath expr="//button[@name='action_quotation_send']"
+                   position="replace">
+                <button name="action_quotation_send" string="Send by Email"
+                        type="object" class="oe_highlight"
+                        groups="base.group_user" invisible="1">
+                </button>
+            </xpath>
+
+            <xpath expr="//page[@name='other_information']" position="after">
+                <page name='warranty_info' string="Warranty Info" invisible="1">
+                    <field name="approver_ids"/>
+                    <field name="check"/>
+
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

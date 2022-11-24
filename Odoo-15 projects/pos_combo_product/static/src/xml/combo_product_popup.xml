@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+   <t t-name="ComboProductsPopup" owl="1">
+       <div role="dialog" class="modal-dialog">
+           <div class="popup popup-couponproducts"
+                style="background-color:white;">
+                   <div style="background:#44886c;color:black;">
+                       <t t-esc="props.DisplayName"/>
+                   </div>
+               <span class="body">
+                   <div style="background:white;color:black;">
+                       <t t-foreach="props.Result" t-as="values">
+                           <div style="background:#57c7a9;color:black;">
+                               <t t-esc="values['category_name']"/>
+                           </div>
+                           <div style="display:flex">
+                               <t t-foreach="values['product']" t-as="product">
+                                   <div>
+                                       <article id="article-17" class="combo product"
+                                                tabindex="0"
+                                                t-on-click="_clickProduct(product)" style="margin:10px;">
+                                           <div>
+                                                <i t-attf-id="select_product_{{product['product_id']}}" class="check" role="img"/>
+                                           </div>
+                                           <img t-attf-src="/web/image?model=product.product&amp;field=image_128&amp;id={{ product['product_id'] }}&amp;unique=1" t-att-alt="product['product_name']" style="margin-top: 20px; max-width: 580px" width="100%"/>
+                                           <div class="product-name" t-attf-id="article_product_{{product['product_id']}}" style="font-size:12px;">
+                                               <t t-esc="product['product_name']"/>
+                                               <div style="background:#b8e9d1;color:black;">
+                                                   <t t-if="product['required']">
+                                                       <span>Required</span>
+                                                   </t>
+                                               </div>
+                                               <div style="background:#aba1a1;color:black;">
+                                               <t t-if="product['count']">
+                                                   <span>choose</span> <t t-esc="product['count']"/> <span>Item</span>
+                                               </t>
+                                               </div>
+                                           </div>
+                                       </article>
+                                   </div>
+                               </t>
+                           </div>
+                        </t>
+                   </div>
+               </span>
+               <div class="footer">
+                   <div class="button cancel" t-on-click="cancel">
+                       <t t-esc="props.exitText"/>
+                   </div>
+                   <div class="button confirm" t-on-click="confirm">
+                       <t t-esc="props.confirmText"/>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </t>
+</templates>

@@ -1,0 +1,20 @@
+<odoo>
+    <menuitem id="main_menu"
+              name="Warranty"
+              sequence="1"/>
+
+    <menuitem id="first_menu"
+              name="Product Warranty"
+              parent="main_menu"/>
+
+    <menuitem id="first_first_menu"
+              action="warranty_request_model_action"
+              parent="first_menu"/>
+
+    <menuitem id="second_menu"
+              name="Reports"
+              parent="main_menu"/>
+    <menuitem id="second_first_menu1"
+              action="warranty_report_model_action"
+              parent="second_menu" sequence="1"/>
+</odoo>

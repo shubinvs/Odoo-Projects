@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+        <record id="inherit_view_res_config_settings" model="ir.ui.view">
+            <field name="name">pos.config.inherit</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='pricing']" position="inside">
+                    <div class="col-12 col-lg-6 o_setting_box" id="discount">
+                        <div class="o_setting_left_pane">
+                            <field name="discount"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="discount"/>
+                            <div class="text-muted">
+                                maximum discount limit on pos
+                            </div>
+                            <div class="content-group mt16"
+                                 attrs="{'invisible': [('discount', '=', False)]}">
+                                <div class="mt16">
+                                    <group>
+                                        <field name="pos_category"/>
+                                        <field name="discount_limit"/>
+                                    </group>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

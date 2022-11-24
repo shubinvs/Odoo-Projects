@@ -1,0 +1,128 @@
+<odoo>
+    <template id="sales_report_pdf_report_template">
+        <t t-call="web.external_layout">
+            <t t-call="web.html_container">
+                <div class="page">
+                    <center>
+                        <h1>Sales Report</h1>
+                    </center>
+                    <center>
+                        <h6>
+                            <strong>
+                                <t t-esc="based_on"/>
+                                Report
+                            </strong>
+                        </h6>
+                    </center><br/>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Sale Order No</th>
+                                <th>Customer</th>
+                                <th>Sales Team</th>
+                                <th>Status</th>
+                                <th>Total Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-if="based_on == 'weeks'">
+                                <t t-set="week_print" t-value="0"/>
+                                <t t-foreach="months" t-as="month">
+                                    <t t-foreach="weeks" t-as="week">
+                                        <t t-foreach="response" t-as="rec">
+                                            <t t-if="rec['month'] == month and rec['week'] == week">
+                                                <t t-if="week_print != rec['week']">
+
+                                                    <tr>
+                                                        <td>
+                                                            <span>
+                                                                <b>
+                                                                    <t t-esc="month"/>
+                                                                    :
+                                                                    <t t-esc="week"/>
+                                                                </b>
+                                                            </span>
+                                                        </td>
+                                                        <td/>
+                                                        <td/>
+                                                        <td/>
+                                                        <td/>
+                                                    </tr>
+                                                    <t t-set="week_print"
+                                                       t-value="rec['week']"/>
+                                                </t>
+                                                <tr>
+                                                    <td>
+                                                        <t t-esc="rec['sale_order_name']"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="rec['customer_name']"/>
+                                                    </td>
+                                                    <td>
+
+                                                        <t t-esc="rec['sales_team']"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="rec['status']"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="rec['total']"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </t>
+                                </t>
+                            </t>
+
+                            <t t-if="based_on == 'months'">
+                                <t t-set="month_print" t-value="0"/>
+                                <t t-foreach="months" t-as="month">
+                                    <t t-foreach="response" t-as="rec">
+                                        <t t-if="rec['month'] == month">
+                                            <t t-if="month_print != rec['month']">
+                                                <tr>
+                                                    <td>
+                                                        <span>
+                                                            <b>
+                                                                <t t-esc="month"/>
+                                                            </b>
+                                                        </span>
+                                                    </td>
+                                                    <td/>
+                                                    <td/>
+                                                    <td/>
+                                                    <td/>
+                                                </tr>
+                                                <t t-set="month_print"
+                                                   t-value="rec['month']"/>
+                                            </t>
+                                            <tr>
+                                                <td>
+                                                    <t t-esc="rec['sale_order_name']"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="rec['customer_name']"/>
+                                                </td>
+                                                <td>
+
+                                                    <t t-esc="rec['sales_team']"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="rec['status']"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="rec['total']"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

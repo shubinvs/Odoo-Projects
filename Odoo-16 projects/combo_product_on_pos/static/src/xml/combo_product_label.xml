@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <t t-name="combo_product_id"
+       t-inherit="point_of_sale.ProductItem" t-inherit-mode="extension"
+       owl="1">
+        <xpath expr="//div[hasclass('product-img')]" position="inside">
+            <t id="is_combo_products" t-if="props.product.is_combo">
+                <div style="background-color: lightgreen">
+                    Combo Product
+                </div>
+            </t>
+        </xpath>
+    </t>
+</odoo>

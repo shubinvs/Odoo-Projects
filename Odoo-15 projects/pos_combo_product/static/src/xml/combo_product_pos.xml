@@ -1,0 +1,12 @@
+<template id="pos_product_qty_view">
+    <t t-name="ProductItem" t-inherit="point_of_sale.ProductItem"
+       t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('product-name')]" position="inside">
+            <t t-if="props.product.combo_products_ids.length>0">
+                <div style="background:green;color:white;" >
+                    <span>Combo product</span>
+                </div>
+            </t>
+        </xpath>
+    </t>
+</template>

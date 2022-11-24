@@ -1,0 +1,13 @@
+<odoo>
+    <template id="sort" inherit_id="website_sale.sort">
+        <xpath expr="//t[@t-set='website_sale_sortable']" position="replace">
+            <t t-set="rating_avg">Rating</t>
+            <t t-set="website_sale_sortable" t-value="[
+                                    (list_price_asc_label, 'list_price asc'),
+                                    (list_price_desc_label, 'list_price desc'),
+                                    (newest_arrivals_desc_label, 'create_date desc'),
+                                    (name_asc_label, 'name asc'),
+                                    (rating_avg, 'avg_rating desc')]"/>
+        </xpath>
+    </template>
+</odoo>

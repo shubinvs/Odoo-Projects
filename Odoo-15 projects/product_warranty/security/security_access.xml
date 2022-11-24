@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+        <record model="ir.module.category"
+                id="warranty_module_security_access">
+            <field name="name">Warranty</field>
+            <field name="description">User and Manager access level for
+                warranty module
+            </field>
+            <field name="sequence">20</field>
+        </record>
+
+        <record id="warranty_access_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="warranty_module_security_access"/>
+        </record>
+        <record id="warranty_access_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="warranty_module_security_access"/>
+            <field name="implied_ids"
+                   eval="[(4, ref('warranty_access_user'))]"/>
+        </record>
+    </data>
+</odoo>
+
+
+
+
+

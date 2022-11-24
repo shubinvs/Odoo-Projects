@@ -1,0 +1,6 @@
+<odoo>
+    <menuitem id="bom_usage_report_menu"
+              parent="mrp.menu_mrp_reporting"
+              action="bom_usage_report_action"
+              sequence="12"/>
+</odoo>

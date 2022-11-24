@@ -1,0 +1,56 @@
+<odoo>
+    <template id="warranty_request_pdf_report">
+        <t t-call="web.external_layout">
+            <t t-call="web.html_container">
+                <div class="page">
+                    <h1>
+                        <b>Product Warranty</b>
+                    </h1>
+                    <h4>Date :
+                        <t t-esc="today_date"/>
+                    </h4>
+                    <p>Start Date :
+                        <t t-esc="start_date"/>
+                    </p>
+                    <p>End Date :
+                        <t t-esc="end_date"/>
+                    </p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Sl No</th>
+                                <th>Sequence No</th>
+                                <th>Customer</th>
+                                <th>Product</th>
+                                <th>Request Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="request_count" t-value="0"/>
+                                  <t t-foreach="response" t-as="rec">
+                                    <t t-set="request_count" t-value="request_count+1"/>
+                                    <tr>
+                                        <td>
+                                            <t t-esc="request_count"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="rec['sequence_no']"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="rec['customer_name']"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="rec['product_name']"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="rec['request_date']"/>
+                                        </td>
+                                    </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

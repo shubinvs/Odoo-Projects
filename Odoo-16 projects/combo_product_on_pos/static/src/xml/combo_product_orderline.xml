@@ -1,0 +1,22 @@
+<template id="combo_product _order_line">
+    <t t-name="order_line" t-inherit="point_of_sale.Orderline"
+       t-inherit-mode="extension" owl="1">
+        <xpath expr="//ul[hasclass('info-list')]" position="inside">
+            <t t-if="props.line.combo_products">
+                <div>
+<!--                    <h2>asdf</h2>-->
+                    <t t-foreach="props.line.combo_products" t-as="combo" t-key="combo_index">
+                        <div>
+                            <span>Product Name:</span>
+                            <t t-esc="combo['product_name']"/>
+                        </div>
+                        <div>
+                            <span>Quantity:</span>
+                            <t t-esc="combo['quantity']"/>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </xpath>
+    </t>
+</template>
